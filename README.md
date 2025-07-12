@@ -13,9 +13,9 @@ Use this repo as a template to build your own project.
 
 ## How to use
 
-1. Fork this repo and use it as a template to build your own project.
-2. Create the initial documentation and request for the creation of the project.
-3. Create a new issue to request the initial creation of the project and tag the project-seeder-agent
+1. use this repo as a template to build your own project.
+2. Write the initial requirements in the project description (in github, main page)
+3. @project-seeder-agent should kick off the project
 4. The Seeder Agent will create the initial project structure, recruit the team, and start building the project, iterating and refining the project as it goes.
-5. Enjoy the project being created by the a5c continuum of agents
+5. Enjoy the project being created by the a5c continuum of agents.
 
