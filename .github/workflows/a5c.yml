@@ -77,3 +77,5 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           DEBUG: ${{ github.event.inputs.debug || 'false' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          DISCORD_GUILD_ID: ${{ vars.DISCORD_GUILD_ID }}
