@@ -23,9 +23,9 @@ on:
   schedule:
     # Every 30 minutes
     - cron: '*/30 * * * *'
-  # workflow_run:
-  #   workflows: [a5c]
-  #   types: [completed]
+  workflow_run:
+    types: [completed]
+    workflows: [Build, Deploy, Test, Release, E2E Test]
 
   # Manual Triggers
   workflow_dispatch:
@@ -56,17 +56,15 @@ jobs:
           fetch-depth: 0
       - name: Filter Self Workflow-run
         id: filter-self
+        # in case this is a workflow_run event, skip if the workflow is a5c or the workflow did not fail.
+        if: github.event_name == 'workflow_run' && (github.event.workflow.name == 'a5c' || github.event.workflow.status != 'failure')
         run: |
-          if [ "$GITHUB_WORKFLOW" = "a5c" ]; then
-            echo "::set-output name=skip::true"
-          fi
-          echo "::set-output name=skip::false"
-
-
+          echo "::set-output name=skip::true"
+          exit 0
       - name: Run A5C
         id: agents
         uses: a5c-ai/action@main
-        if: steps.filter-self.outputs.skip == 'false'
+        if: steps.filter-self.outputs.skip != 'true'
         with:
           # Auto-routing by default, unless specific agent is requested
           agent_uri: ${{ github.event.inputs.agent_uri || '' }}
