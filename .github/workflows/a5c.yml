@@ -57,7 +57,7 @@ jobs:
       - name: Filter Self Workflow-run
         id: filter-self
         # in case this is a workflow_run event, skip if the workflow did not fail.
-        if: github.event_name == 'workflow_run' && (github.event.workflow.conclusion != 'failure')
+        if: github.event_name == 'workflow_run' && (github.event.workflow_run.conclusion != 'failure')
         run: |
           echo "::set-output name=skip::true"
           exit 0
