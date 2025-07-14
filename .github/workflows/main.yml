@@ -28,9 +28,9 @@ jobs:
       FEATURE_TEAM_AUDIT_LOG: true
       FEATURE_TEAM_WEBHOOK: false
       FEATURE_TEAM_API_KEY: true
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       FEATURE_TEAM_DELETION: true
       FEATURE_TEAM_PAYMENTS: true
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       CONFIRM_EMAIL: false
       HIDE_LANDING_PAGE: false
       GROUP_PREFIX: a5c-
@@ -67,13 +67,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Check if at initial state
-        run: |
-          # check if package.json exists, if not, stop the entire job
-          if [ ! -f package.json ]; then
-            echo "::error::package.json not found. at initial state"
-            exit 1
-          fi
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
