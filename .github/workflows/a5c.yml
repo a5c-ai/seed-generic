@@ -25,7 +25,7 @@ on:
     - cron: '*/30 * * * *'
   workflow_run:
     types: [completed]
-    workflows: [Build, Deploy, Test, Release, E2E Test]
+    workflows: [Build, Deploy, Tests, Release, E2E Tests]
 
   # Manual Triggers
   workflow_dispatch:
@@ -56,8 +56,8 @@ jobs:
           fetch-depth: 0
       - name: Filter Self Workflow-run
         id: filter-self
-        # in case this is a workflow_run event, skip if the workflow is a5c or the workflow did not fail.
-        if: github.event_name == 'workflow_run' && (github.event.workflow.name == 'a5c' || github.event.workflow.status != 'failure')
+        # in case this is a workflow_run event, skip if the workflow did not fail.
+        if: github.event_name == 'workflow_run' && (github.event.workflow.status != 'failure')
         run: |
           echo "::set-output name=skip::true"
           exit 0
