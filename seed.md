@@ -5,7 +5,6 @@
 https://github.com/boxyhq/saas-starter-kit
 (unless specified otherwise in the project description)
 
-
 ## Notes
 
 ### GitHub Workflows
