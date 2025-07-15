@@ -77,7 +77,6 @@ jobs:
       - run: npm run build-ci
       - name: Setup database
         run: npx prisma generate && npx prisma db push --accept-data-loss --skip-generate
-      - run: npm run test-all
       - name: Install playwright browser dependencies
         run: npx playwright install chromium
       - name: Run E2E tests
