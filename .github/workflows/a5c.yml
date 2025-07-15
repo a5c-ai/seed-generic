@@ -77,3 +77,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           DISCORD_GUILD_ID: ${{ vars.DISCORD_GUILD_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN || '' }}
+          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID || '' }}
+          VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID || '' }}
