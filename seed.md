@@ -26,6 +26,15 @@ as an env variable for the actions (in github)
 as a comment to this ticket.
 in a .vercel.env file in the repo (with only the new VERCEL_PROJECT_ID)
 
+### Supabase project creation and association
+
+(2nd issue to create)
+
+use the SUPABASE_ACCESS_TOKEN and SUPABASE_ORG_ID to generate a new project in supabase and save the SUPABASE_PROJECT_REF and SUPABASE_PROJECT_URL in the repo:
+
+as an env variable for the actions (in github)
+as a comment to this ticket.
+in a .supabase.env file in the repo (with only the new SUPABASE_PROJECT_REF and SUPABASE_PROJECT_URL)
 
 ### Husky pre-commit hooks
 
