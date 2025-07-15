@@ -1,3 +1,9 @@
+<p align="center">
+<a href="https://github.com/a5c-ai/zero-to-demo/generate">
+  <img src="https://img.shields.io/badge/use%20this-template-blue?logo=github">
+</a>
+</p>
+
 # a5c zero-to-demo
 
 Build an entire project from scratch using a5c
@@ -25,6 +31,7 @@ For example, if you are using Vercel, you will need to set the following environ
 ## How to use
 
 1. Click the "Use this template" button to start your own project.
+
 2. Write the initial requirements in the project description (in github, main page)
 3. @project-seeder-agent should kick off the project
 4. The Seeder Agent will create the initial project structure, recruit the team, and start building the project, iterating and refining the project as it goes.
