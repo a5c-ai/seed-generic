@@ -110,17 +110,20 @@ jobs:
         run: |
           npm ci
           npm run build-ci
+      - name: Link project to Vercel
+        run: |
+          vercel link --yes --token=${{ secrets.VERCEL_TOKEN }} \
+          --scope=${{ vars.VERCEL_ORG_ID }} \
+          --project=${{ vars.VERCEL_PROJECT_ID }}
 
       - name: Deploy to Vercel (Production)
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/release')
         run: |
           vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} \
-          --scope=${{ vars.VERCEL_ORG_ID }} \
-          --project-id=${{ vars.VERCEL_PROJECT_ID }}
+          --scope=${{ vars.VERCEL_ORG_ID }} 
 
       - name: Deploy to Vercel (Preview)
         if: github.event_name == 'pull_request'
         run: |
           vercel deploy --token=${{ secrets.VERCEL_TOKEN }} \
-          --scope=${{ vars.VERCEL_ORG_ID }} \
-          --project-id=${{ vars.VERCEL_PROJECT_ID }}
+          --scope=${{ vars.VERCEL_ORG_ID }}
