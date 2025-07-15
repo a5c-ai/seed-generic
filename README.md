@@ -24,9 +24,8 @@ Use this repo as a template to build your own project.
 And for any other external services, you will need to set their corresponding environment variables as secrets in the repo or organization.
 
 For example, if you are using Vercel, you will need to set the following environment variables as secrets in the repo or organization:
-- VERCEL_PROJECT_ID
-- VERCEL_TOKEN
-- VERCEL_ORG_ID
+- VERCEL_TOKEN (as secret)
+- VERCEL_ORG_ID (as variable)
 
 ## How to use
 
