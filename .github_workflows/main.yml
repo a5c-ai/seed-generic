@@ -1,0 +1,234 @@
+# GitHub action to build
+
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+      - release
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check_project_status:
+    runs-on: ubuntu-latest
+    outputs:
+      has_package_json: ${{ steps.check_files.outputs.has_package_json }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check if project has been initialized
+        id: check_files
+        run: |
+          if [ -f "package.json" ]; then
+            echo "has_package_json=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_package_json=false" >> $GITHUB_OUTPUT
+          fi
+
+  build:
+    needs: check_project_status
+    if: needs.check_project_status.outputs.has_package_json == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22]
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
+      NEXTAUTH_URL: http://localhost:4002
+      NEXTAUTH_SECRET: secret
+      NEXTAUTH_SESSION_STRATEGY: database
+      AUTH_PROVIDERS: github,credentials,saml,idp-initiated
+      FEATURE_TEAM_SSO: true
+      FEATURE_TEAM_DSYNC: true
+      FEATURE_TEAM_AUDIT_LOG: true
+      FEATURE_TEAM_WEBHOOK: false
+      FEATURE_TEAM_API_KEY: true
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      FEATURE_TEAM_DELETION: true
+      FEATURE_TEAM_PAYMENTS: true
+      CONFIRM_EMAIL: false
+      HIDE_LANDING_PAGE: false
+      GROUP_PREFIX: a5c-
+      DISABLE_NON_BUSINESS_EMAIL_SIGNUP: false
+      APP_URL: http://localhost:4002
+      JACKSON_PRODUCT_ID: a5c
+      JACKSON_WEBHOOK_SECRET: your-webhook-secret
+      JACKSON_API_KEY: secret
+      DEBUG: pw:webserver
+      CI: true
+      # vercel credentials
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN || '' }}
+      VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID || '' }}
+      VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID || '' }}
+      # supabase credentials
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN || '' }}
+      SUPABASE_ORG_ID: ${{ vars.SUPABASE_ORG_ID || '' }}
+      SUPABASE_PROJECT_REF: ${{ vars.SUPABASE_PROJECT_REF || '' }}
+      SUPABASE_PROJECT_URL: ${{ vars.SUPABASE_PROJECT_URL || '' }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD || '' }}
+      # slack credentials
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN || '' }}
+      SLACK_SIGNING_SECRET: ${{ secrets.SLACK_SIGNING_SECRET || '' }}
+      SLACK_APP_TOKEN: ${{ secrets.SLACK_APP_TOKEN || '' }}
+      # discord credentials
+      DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN || '' }}
+      DISCORD_GUILD_ID: ${{ vars.DISCORD_GUILD_ID || '' }}
+      # access key for stripe api for management
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY || '' }}
+      # access key for stripe api for payments
+      STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY || '' }}
+      # webhook secret for stripe
+      STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET || '' }}
+      # webhook url for stripe
+      STRIPE_WEBHOOK_URL: ${{ vars.STRIPE_WEBHOOK_URL || '' }}
+      # webhook id for stripe
+      STRIPE_WEBHOOK_ID: ${{ vars.STRIPE_WEBHOOK_ID || '' }}
+      # aws credentials 
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID || '' }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY || '' }}
+      AWS_REGION: ${{ vars.AWS_REGION || '' }}
+      # gcloud credentials
+      GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS || '' }}
+      # azure credentials
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID || '' }}
+      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET || '' }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID || '' }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID || '' }}
+      # auth credentials
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID || '' }}
+      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET || '' }}
+      GITHUB_CLIENT_ID: ${{ secrets.GITHUB_CLIENT_ID || '' }}
+      GITHUB_CLIENT_SECRET: ${{ secrets.GITHUB_CLIENT_SECRET || '' }}
+      GITHUB_ORG_ID: ${{ vars.GITHUB_ORG_ID || '' }}
+      GITHUB_ORG_NAME: ${{ vars.GITHUB_ORG_NAME || '' }}
+      GITHUB_ORG_DESCRIPTION: ${{ vars.GITHUB_ORG_DESCRIPTION || '' }}
+      # other credentials
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY || '' }}
+      HEROKU_APP_NAME: ${{ vars.HEROKU_APP_NAME || '' }}
+      HEROKU_APP_ID: ${{ vars.HEROKU_APP_ID || '' }}
+      HEROKU_APP_URL: ${{ vars.HEROKU_APP_URL || '' }}
+
+    services:
+      postgres:
+        image: postgres:16.4
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_PASSWORD: 'postgres'
+          POSTGRES_HOST_AUTH_METHOD: 'trust'
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      mocksaml:
+        image: boxyhq/mock-saml:1.3.9
+        ports:
+          - 4000:4000
+        env:
+          APP_URL: http://localhost:4000
+          ENTITY_ID: https://saml.example.com/entityid
+          PUBLIC_KEY: 'LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURiVENDQWxXZ0F3SUJBZ0lVUWR0Q05FRnRGYWF6OUtNYkp6eUhCVm5vMWZFd0RRWUpLb1pJaHZjTkFRRUwKQlFBd1JURUxNQWtHQTFVRUJoTUNSMEl4RXpBUkJnTlZCQWdNQ2xOdmJXVXRVM1JoZEdVeElUQWZCZ05WQkFvTQpHRWx1ZEdWeWJtVjBJRmRwWkdkcGRITWdVSFI1SUV4MFpEQWdGdzB5TkRBME1UUXhNVFUwTkRkYUdBOHpNREl6Ck1EZ3hOakV4TlRRME4xb3dSVEVMTUFrR0ExVUVCaE1DUjBJeEV6QVJCZ05WQkFnTUNsTnZiV1V0VTNSaGRHVXgKSVRBZkJnTlZCQW9NR0VsdWRHVnlibVYwSUZkcFpHZHBkSE1nVUhSNUlFeDBaRENDQVNJd0RRWUpLb1pJaHZjTgpBUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTXpaTFprL2VBUXExZ3BmdWR0cklXdC9MbzZaRjFveXp4T09PV2xmCndSR1ZoT1VjbkEwb2g1SmxXdUQ4TjdEQzMyY2p0OER3dXpRcGZWcWk0M1hOVnhNbG4yTm9NUlJJNVhjQlpYMkYKai9mdnphTG5nUkk1ZkQ3WGxHRGlQcktHOGVWR2YvUzAzYnVWS2d1VzFaSldUL0xlZzlqNWtXS3RxWTA0a3M1SwpET29IN0JOaGNYaXE2R2ZYek5FL0F0WFBKYWF1OU1SRG5ZclYvVFlINENBR2hSclNBc0pROU5zYXJFWjZKN21SClY2VE4xNU9KS2ZpSHhRUURNMWJvTkYzdVMwSkFuc3BtcElHTERlQ0xzdkNHTEwyeGFxVHJXVzVvMnlrWkxsYm4KSThuOG1WcHBQams2MElsVFUyWjJ5TW9ZL0VmRE9CcUIwSWdNa1U3dzlQSVdla01DQXdFQUFhTlRNRkV3SFFZRApWUjBPQkJZRUZCaUNTNEswejdlR2lWYXI2dlUrb2lzWEdkWlVNQjhHQTFVZEl3UVlNQmFBRkJpQ1M0SzB6N2VHCmlWYXI2dlUrb2lzWEdkWlVNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUIKQUNpMFZSN0lHdmdHbmdyL1lpZkxZZzZwWUlFc010cGFsMmYxekMzZGpkRElPTHlmVk12aTJzdUtUazM2MkNGeApXU2lxaVc4UXhPbDZlZTdrUVhTbnpJVlRMb2hwcm5WVFVmeUpXUlpJdThvbGpkREprSE9yekV3YktqZUhsbU1PClZxODZGbzBpN0NnTG1oTjh1dDVyNFdHdytYVElZc2lkZC9SaUFGMlFRMVR4QkJaN3hoZVJlU0o5M0tGd29FbkQKcU5hLzE2VUpsdWpXbmRTMEF2Q09weEFnWXJFL1czbzJqUWVnczZmMnhWemozbFc2WVpEaVg5YXBrUTVKZWlscwp3WFRuSHMvL3dlcCsvWndYbXcrYXQrNXRXRU9ycU15TERDbXpFc294MFBmQUhZdlQ4M0hTMWZtL2RiQUJHNlJwCkcxTU41OUMyYmRxUHd3K0hUVEplZFVvPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=='
+          PRIVATE_KEY: 'LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2d0lCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktrd2dnU2xBZ0VBQW9JQkFRRE0yUzJaUDNnRUt0WUsKWDduYmF5RnJmeTZPbVJkYU1zOFRqamxwWDhFUmxZVGxISndOS0llU1pWcmcvRGV3d3Q5bkk3ZkE4THMwS1gxYQpvdU4xelZjVEpaOWphREVVU09WM0FXVjloWS8zNzgyaTU0RVNPWHcrMTVSZzRqNnlodkhsUm4vMHROMjdsU29MCmx0V1NWay95M29QWStaRmlyYW1OT0pMT1NnenFCK3dUWVhGNHF1aG4xOHpSUHdMVnp5V21ydlRFUTUySzFmMDIKQitBZ0JvVWEwZ0xDVVBUYkdxeEdlaWU1a1Zla3pkZVRpU240aDhVRUF6Tlc2RFJkN2t0Q1FKN0tacVNCaXczZwppN0x3aGl5OXNXcWs2MWx1YU5zcEdTNVc1eVBKL0psYWFUNDVPdENKVTFObWRzaktHUHhId3pnYWdkQ0lESkZPCjhQVHlGbnBEQWdNQkFBRUNnZ0VBQ0NPbytDblpidkQweUR5OWVjWnI4WVdBS0JKVkp6UlZuZ1ZNcXE4dlVLK00KTkQ1S3hRc1ROL0huQm9GL0JQcjVQWFBoM1R5emM0TWlnL05zN2tWV2JHQldVUERXNG1OekdxTm5rUEU1b3pSWQpDMXovZCtYbzFlWmk4dWFLYnpXRmJ3SzZHdE1FN0dzazNJa0Z1MmJLam0vZzlVSVZVTUp0dGpyRk9vVWV0ajNBCkpFWU5TZFplWFA2Z0RXeitlR0F6V2RXRnlNZ1hHT0hCanVMekt1S3kwb2xQaUFHRTJIMlhicHlCSEk2K09taHUKemU4VEhYSUg0YW1TOTdaN0ZlWTdZaDZPV0xoeVByaVh3VGZjNk1NaktubUdWOWQ3RytVanIyS3NVNGtYMG1MRApQKzhsS1NqVnFvUjF2YUswWEJiV0Fnd0kwbVd4TjhQMFZqSzRjMzJUNFFLQmdRRG9wZUJ6cE1xVjFlY24ydkFzCnkvRW5JeXdMcUlBVUZuRXRsRnlnMkVOM2ZZMDRkUTBqOWNzM0ZqbXNQK3grYjA1U2pJK05vVVQzRUowNC96Uk8KMFcvcmc0cEVTUlNDOHRtelliUGkycktrc2xLSDhmUWd2YzZKV1FVUThsWWx2elh6OTZiTFlxeFNtK0EwZ1Z4QQpEc2JNQk5NZDEzdk5Wa1VjTURsMnNveTNMUUtCZ1FEaGFQWnF4QzRxSVB1TlhOZE5EbExRVGZIWGxFMzRRTXVaCnNiM3J1NVdwbkJOdWpCU0xHREV2a0pvckprcUZ1b3VYUnVOOGIrd3BObi9lc0c3TjZyM3o5bHltRkI1VE1Ba3kKTlBPR0dDNWdqOU0wVytGTmw4M2dIVkN6eVgxa3VyR2t1amVHM1F1b2RoYXZBaWpqUzdnNW5Nb1J3OEpwcitUdwp4NEtKMC92ZEx3S0JnUURBSjVHMXNweXBHVjJ0YTRZSVdnSTZvekJVQ0w2UTJPQnVGeVpTcTQwOStuTlQrRW44Ck01Mi9TQm9talQzV1NEVFd0Y1l6NHNuRmp2RnRERXkxOVFLTjhiMllIUXhXQkNPUHA5a2VQQ2hsSSt4SzRLc1YKQi9DNVBNK1VhYlNCeE9iWk5PbU0vMWo1ZWttNjFFWFBtdVRUeWdCZG00ZGoyQ2VJMnNQN3FBblZtUUtCZ1FDZgp0T0N5OE9ETWxLWG1tTnNyQzNUOWhkeE9KQlBDU3haMmhRck5WUkZMSlB4WG5RU0pNTkRZcEptMjdPQnNNNm5uCnV5QSs4SVhoQlc0Lzk3M3FRK0htVXExK05rN3VIZURHSStKUEpoN2w1OEY3SFlaYWxhNFdsbTZ4azVjMm9WaHcKSUVoclUzNkpFM0lxK1ZyREFNazhlS3hyUGNvblc2cllObU4xQ0M4eG5RS0JnUURiOGZTeDBQcHg1WisxL2tCMwpxVGc2RDJYY1YyZGVWNFdsOS9JQ2owRHFqaGpXekJjaThuTjUyb3ZoSmVXcFVxWnJ1eStVWTg2cVRuK09oNGVJClNkZFRBb0F2cU1sL2gzVzdCRUdad2NsclRJSWRqTHVmK0FuRGN5S0lKY21CUG9JZGsydzZ4dkNWczJqbmdEOTMKcjZ0R3VoNHlvM2pIRkRTR0Y3dDdCRk5RSEE9PQotLS0tLUVORCBQUklWQVRFIEtFWS0tLS0tCg=='
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          check-latest: true
+      - run: npm ci
+      - run: npm run build-ci
+      - name: Setup database
+        run: npx prisma generate && npx prisma db push --accept-data-loss --skip-generate
+      # - name: Install playwright browser dependencies
+      #   run: npx playwright install chromium
+      # - name: Run E2E tests
+      #   run: npm run test:e2e
+      # - uses: actions/upload-artifact@v4
+      #   if: ${{ !cancelled() }}
+      #   with:
+      #     name: playwright-report
+      #     path: playwright-report/
+      #     retention-days: 2
+  
+  template_verification:
+    needs: check_project_status
+    if: needs.check_project_status.outputs.has_package_json == 'false'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify template structure
+        run: |
+          echo "Repository is in template state. No Node.js project has been initialized yet."
+          echo "This is expected until a project is seeded from the template."
+          echo "Workflow passes as the repository is in a valid template state."
+
+  deploy:
+    needs: [check_project_status, build, template_verification]
+    if: |
+      always() && 
+      (needs.check_project_status.outputs.has_package_json == 'false' && 
+       needs.template_verification.result == 'success') || 
+      (needs.check_project_status.outputs.has_package_json == 'true' && 
+       needs.build.result == 'success')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if project should be deployed
+        id: check_deploy
+        run: |
+          if [ -f "package.json" ]; then
+            echo "should_deploy=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_deploy=false" >> $GITHUB_OUTPUT
+            echo "Repository is in template state. No deployment needed."
+          fi
+
+      - name: Setup Node.js
+        if: steps.check_deploy.outputs.should_deploy == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          check-latest: true
+
+      - name: Install Vercel CLI
+        if: steps.check_deploy.outputs.should_deploy == 'true'
+        run: npm install -g vercel
+
+      - name: Build Project
+        if: steps.check_deploy.outputs.should_deploy == 'true'
+        run: |
+          npm ci
+          npm run build-ci
+          
+      - name: Link project to Vercel
+        if: steps.check_deploy.outputs.should_deploy == 'true'
+        run: |
+          vercel link --yes --token=${{ secrets.VERCEL_TOKEN }} \
+          --scope=${{ vars.VERCEL_ORG_ID }} \
+          --project=${{ vars.VERCEL_PROJECT_ID }}
+
+      - name: Deploy to Vercel (Production)
+        if: >-
+          steps.check_deploy.outputs.should_deploy == 'true' && 
+          github.event_name == 'push' && 
+          (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/release')
+        run: |
+          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} \
+          --scope=${{ vars.VERCEL_ORG_ID }} 
+
+      - name: Deploy to Vercel (Preview)
+        if: >-
+          steps.check_deploy.outputs.should_deploy == 'true' && 
+          github.event_name == 'pull_request'
+        run: |
+          vercel deploy --token=${{ secrets.VERCEL_TOKEN }} \
+          --scope=${{ vars.VERCEL_ORG_ID }}
