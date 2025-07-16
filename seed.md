@@ -12,9 +12,14 @@ this logic should apply to all providers, not just the ones in the example.
 
 prefer the more minimal templates, with less dependencies and features that what we actually need: for example, if we need a static frontend/landing page, we should not use a template that includes a database nor payments, etc.
 
+
 ### Gallery
 
+Docs Sites:
+
 https://github.com/shuding/nextra-docs-template (docs site)
+
+Full stack or websites:
 
 https://github.com/boxyhq/saas-starter-kit (nextjs saas app)
 
@@ -32,9 +37,50 @@ https://github.com/vercel/vercel/tree/main/examples/nextjs (nextjs, shadcn/ui - 
 
 https://github.com/vercel/vercel/tree/main/examples/nuxtjs (nuxtjs, shadcn/ui - good for static pages, landing pages, public websites, etc)
 
-there are many more templates in: https://github.com/vercel/vercel/tree/main/examples , https://github.com/topics/boilerplate , https://github.com/topics/template , https://github.com/topics/starter-kit , https://github.com/topics/starter-template
+
+https://github.com/brocoders/nestjs-boilerplate (NestJS boilerplate. Auth, TypeORM, Mongoose, Postgres, MongoDB, Mailing, I18N)
+
+https://github.com/async-labs/saas (SaaS boilerplate. Productive stack: React, Material-UI, Next, MobX, WebSockets, Express, Node, Mongoose, MongoDB. Written with TypeScript.)
+
+https://github.com/kriasoft/react-starter-kit - (cloudflare workers, react, typescript, tailwind, shadcn/ui)
+
+https://github.com/vercel/next-forge (react typescript stripe sentry nextjs neon seo feature-flags dark-mode prisma tailwindcss posthog clerk)
+
+
+https://github.com/kriasoft/graphql-starter-kit - (Monorepo, GraphQL API, PostgreSQL, React, and Joy UI.)
+
+https://github.com/lxieyang/chrome-extension-boilerplate-react (chrome extension boilerplate, react, webpack)
+
+
+there are many more templates in these catalogs: https://github.com/vercel/vercel/tree/main/examples , https://github.com/topics/boilerplate , https://github.com/topics/template , https://github.com/topics/starter-kit , https://github.com/topics/starter-template , https://github.com/prisma/prisma-examples (for prisma), 
 
 find the one with the best fit and the most stars.
+
+for games, depending on the game engine type, you can use the following templates:
+
+https://github.com/Avalin/Unity-CI-Templates (Unity)
+
+https://github.com/epayet/phaser-typescript-seed (Phaser - simpler projects, 2d, typescript)
+
+for mobile apps, you can use the following templates (you may need to use more than one template to cover both mobile and web):
+
+https://github.com/thecodingmachine/react-native-boilerplate
+
+https://github.com/obytes/react-native-template-obytes (React Native, Expo, PNPM, TypeScript, TailwindCSS, Husky, EAS, GitHub Actions, Env Vars, expo-router, react-query, react-hook-form)
+
+
+
+pure microservices:
+
+https://github.com/hagopj13/node-express-boilerplate (nodejs, express, mongoose)
+https://github.com/santoshshinde2012/node-boilerplate 
+
+packages:
+
+https://github.com/tomchen/example-typescript-package
+https://github.com/lambda-science/modern-python-boilerplate
+
+if none of the templates fit the project requirements, try https://github.com/pankod/superplate ( generic scaffolding for many many types of stacks), and if that doesn't work, create a issue to ask for the specific templates to use or to build a new one.
 
 ## Notes
 
