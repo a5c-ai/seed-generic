@@ -10,6 +10,8 @@ you can choose templates that do not support supabase or vercel even if the proj
 
 this logic should apply to all providers, not just the ones in the example.
 
+prefer the more minimal templates, with less dependencies and features that what we actually need: for example, if we need a static frontend/landing page, we should not use a template that includes a database nor payments, etc.
+
 ### Gallery
 
 https://github.com/shuding/nextra-docs-template (docs site)
