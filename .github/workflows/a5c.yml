@@ -77,6 +77,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           DISCORD_GUILD_ID: ${{ vars.DISCORD_GUILD_ID }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN || '' }}         
+          SLACK_SIGNING_SECRET: ${{ secrets.SLACK_SIGNING_SECRET || '' }}
+          SLACK_APP_TOKEN: ${{ secrets.SLACK_APP_TOKEN || '' }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN || '' }}
           VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID || '' }}
           VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID || '' }}
@@ -100,7 +103,6 @@ jobs:
           AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET || '' }}
           AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID || '' }}
           AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID || '' }}
-
           # auth credentials
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID || '' }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET || '' }}
@@ -108,4 +110,10 @@ jobs:
           GITHUB_CLIENT_SECRET: ${{ secrets.GITHUB_CLIENT_SECRET || '' }}
           GITHUB_ORG_ID: ${{ vars.GITHUB_ORG_ID || '' }}
           GITHUB_ORG_NAME: ${{ vars.GITHUB_ORG_NAME || '' }}
-          GITHUB_ORG_DESCRIPTION: ${{ vars.GITHUB_ORG_DESCRIPTION || '' }}          
+          GITHUB_ORG_DESCRIPTION: ${{ vars.GITHUB_ORG_DESCRIPTION || '' }}
+
+          # other credentials
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY || '' }}
+          HEROKU_APP_NAME: ${{ vars.HEROKU_APP_NAME || '' }}
+          HEROKU_APP_ID: ${{ vars.HEROKU_APP_ID || '' }}
+          HEROKU_APP_URL: ${{ vars.HEROKU_APP_URL || '' }}

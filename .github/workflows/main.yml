@@ -41,14 +41,23 @@ jobs:
       JACKSON_API_KEY: secret
       DEBUG: pw:webserver
       CI: true
+      # vercel credentials
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN || '' }}
       VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID || '' }}
-      VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID || '' }}
+      VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID || '' }}      
+      # supabase credentials
       SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN || '' }}
       SUPABASE_ORG_ID: ${{ vars.SUPABASE_ORG_ID || '' }}
       SUPABASE_PROJECT_REF: ${{ vars.SUPABASE_PROJECT_REF || '' }}
       SUPABASE_PROJECT_URL:  ${{ vars.SUPABASE_PROJECT_URL || '' }}
       SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD || '' }}
+      # slack credentials
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN || '' }}
+      SLACK_SIGNING_SECRET: ${{ secrets.SLACK_SIGNING_SECRET || '' }}
+      SLACK_APP_TOKEN: ${{ secrets.SLACK_APP_TOKEN || '' }}
+      # discord credentials
+      DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN || '' }}
+      DISCORD_GUILD_ID: ${{ vars.DISCORD_GUILD_ID || '' }}      
       # access key for stripe api for management
       STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY || '' }}
       # access key for stripe api for payments
@@ -79,6 +88,13 @@ jobs:
       GITHUB_ORG_ID: ${{ vars.GITHUB_ORG_ID || '' }}
       GITHUB_ORG_NAME: ${{ vars.GITHUB_ORG_NAME || '' }}
       GITHUB_ORG_DESCRIPTION: ${{ vars.GITHUB_ORG_DESCRIPTION || '' }}
+
+      # other credentials
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY || '' }}
+      HEROKU_APP_NAME: ${{ vars.HEROKU_APP_NAME || '' }}
+      HEROKU_APP_ID: ${{ vars.HEROKU_APP_ID || '' }}
+      HEROKU_APP_URL: ${{ vars.HEROKU_APP_URL || '' }}
+
     services:
       postgres:
         image: postgres:16.4
