@@ -85,7 +85,7 @@ if none of the templates fit the project requirements, try https://github.com/pa
 
 CLI/Command line tools:
 
-https://github.com/samhuk/node-cli-template (Typescript, node) - use this for cli tools by default if not mentioned a different language.
+https://github.com/samhuk/node-cli-template (Typescript, node, commander.js) - use this for cli tools by default if not mentioned a different language.
 ----
 prefer the template by stack first, not functionality. (and never use php)
 
