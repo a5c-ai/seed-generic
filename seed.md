@@ -12,6 +12,9 @@ this logic should apply to all providers, not just the ones in the example.
 
 prefer the more minimal templates, with less dependencies and features that what we actually need: for example, if we need a static frontend/landing page, we should not use a template that includes a database nor payments, etc.
 
+if a project parts needs data processing, ml, specialy algorithms and models, you should prefer python for that part. 
+
+if the description indicates that a part of the project depends on a library that is only available in specific language, you should prefer that language for that part. for example: cli project that needs pytorch or docling would be better in python.
 
 ### Gallery
 
@@ -82,11 +85,23 @@ https://github.com/lambda-science/modern-python-boilerplate
 
 if none of the templates fit the project requirements, try https://github.com/pankod/superplate ( generic scaffolding for many many types of stacks), and if that doesn't work, create a issue to ask for the specific templates to use or to build a new one. 
 
-
 CLI/Command line tools:
 
-https://github.com/samhuk/node-cli-template (Typescript, node, commander.js) - use this for cli tools by default if not mentioned a different language.
+https://github.com/chamoda/cookiecutter-typer (python, typer, cookiecutter template)
+
+https://github.com/simonw/click-app (python, click, cookiecutter template)
+
+https://github.com/samhuk/node-cli-template (Typescript, node, commander.js) 
 ----
+
+cookiecutter templates (python and go):
+
+https://github.com/search?q=cookiecutter&type=Repositories (the entire catalog of cookiecutter templates)
+
+https://github.com/audreyfeldroy/cookiecutter-pypackage (python package, cookiecutter template)
+
+use cookiecutter and the right cookiecutter template if the projects needs python or go. (you will need to install it first using pip install)
+
 prefer the template by stack first, not functionality. (and never use php)
 
 ## Notes
