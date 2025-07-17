@@ -1,5 +1,5 @@
 # build
-. ./scripts/build.sh
+sh ./scripts/build.sh
 
 # test
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # install dependencies
-. ./scripts/install.sh
+sh ./scripts/install.sh
 
 # setup dev environment
 
