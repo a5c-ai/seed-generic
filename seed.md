@@ -110,6 +110,15 @@ in a .vercel.env file in the repo (with only the new VERCEL_PROJECT_ID)
 
 if the input env variables are not provided, create a issue to ask for them instead of creating the project.
 
+then, make sure you update the npm run deploy command to:
+link the project to vercel:
+          vercel link --yes --token=${{ secrets.VERCEL_TOKEN }} \
+          --scope=${{ vars.VERCEL_ORG_ID }} \
+          --project=${{ vars.VERCEL_PROJECT_ID }}
+and deploy the project:
+          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} \
+          --scope=${{ vars.VERCEL_ORG_ID }} 
+
 ### Supabase project creation and association (if the stack includes supabase)
 
 use the SUPABASE_ACCESS_TOKEN and SUPABASE_ORG_ID to generate a new project (with default db password from SUPABASE_DB_PASSWORD) in supabase and save the SUPABASE_PROJECT_REF and SUPABASE_PROJECT_URL and SUPABASE_ANON_KEY in the repo:
@@ -141,6 +150,8 @@ as well as setting service or callback urls, for example in supabase and next: N
 and probably (NEXT_PUBLIC_SITE_URL)
 
 ### More issues for providers integration similar to the ones above (if the stack includes more providers)
+
+For Example: Prisma, need to set the DATABASE_URL according to the rest of the stack during the build/run time. as well as to add prisma commands to the npm scripts. (build should could prisma generate too)
 
 ### Husky pre-commit hooks (if the seed/stack includes a package.json)
 

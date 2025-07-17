@@ -128,9 +128,9 @@ jobs:
           cache: 'npm'
           check-latest: true
       - run: npm ci
-      - run: npm run build-ci
-      - name: Setup database
-        run: npx prisma generate && npx prisma db push --accept-data-loss --skip-generate
+      - run: npm run build
+      # - name: Setup database
+      #   run: npx prisma generate && npx prisma db push --accept-data-loss --skip-generate
       # - name: Install playwright browser dependencies
       #   run: npx playwright install chromium
       # - name: Run E2E tests
@@ -160,21 +160,7 @@ jobs:
       - name: Build Project
         run: |
           npm ci
-          npm run build-ci
-      - name: Link project to Vercel
+          npm run build
+      - name: Deploy
         run: |
-          vercel link --yes --token=${{ secrets.VERCEL_TOKEN }} \
-          --scope=${{ vars.VERCEL_ORG_ID }} \
-          --project=${{ vars.VERCEL_PROJECT_ID }}
-
-      - name: Deploy to Vercel (Production)
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/release')
-        run: |
-          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} \
-          --scope=${{ vars.VERCEL_ORG_ID }} 
-
-      - name: Deploy to Vercel (Preview)
-        if: github.event_name == 'pull_request'
-        run: |
-          vercel deploy --token=${{ secrets.VERCEL_TOKEN }} \
-          --scope=${{ vars.VERCEL_ORG_ID }}
+          npm run deploy
