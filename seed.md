@@ -82,6 +82,11 @@ https://github.com/lambda-science/modern-python-boilerplate
 
 if none of the templates fit the project requirements, try https://github.com/pankod/superplate ( generic scaffolding for many many types of stacks), and if that doesn't work, create a issue to ask for the specific templates to use or to build a new one. 
 
+
+CLI/Command line tools:
+
+https://github.com/samhuk/node-cli-template (Typescript, node) - use this for cli tools by default if not mentioned a different language.
+----
 prefer the template by stack first, not functionality. (and never use php)
 
 ## Notes
