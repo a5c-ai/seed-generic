@@ -83,11 +83,11 @@ jobs:
       # auth credentials
       GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID || '' }}
       GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET || '' }}
-      GITHUB_CLIENT_ID: ${{ secrets.GITHUB_CLIENT_ID || '' }}
-      GITHUB_CLIENT_SECRET: ${{ secrets.GITHUB_CLIENT_SECRET || '' }}
-      GITHUB_ORG_ID: ${{ vars.GITHUB_ORG_ID || '' }}
-      GITHUB_ORG_NAME: ${{ vars.GITHUB_ORG_NAME || '' }}
-      GITHUB_ORG_DESCRIPTION: ${{ vars.GITHUB_ORG_DESCRIPTION || '' }}
+      AUTH_GITHUB_CLIENT_ID: ${{ secrets.AUTH_GITHUB_CLIENT_ID || '' }}
+      AUTH_GITHUB_CLIENT_SECRET: ${{ secrets.AUTH_GITHUB_CLIENT_SECRET || '' }}
+      AUTH_GITHUB_ORG_ID: ${{ vars.AUTH_GITHUB_ORG_ID || '' }}
+      AUTH_GITHUB_ORG_NAME: ${{ vars.AUTH_GITHUB_ORG_NAME || '' }}
+      AUTH_GITHUB_ORG_DESCRIPTION: ${{ vars.AUTH_GITHUB_ORG_DESCRIPTION || '' }}
 
       # other credentials
       HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY || '' }}

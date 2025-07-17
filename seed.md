@@ -116,9 +116,24 @@ in a .supabase.env file in the repo (with only the new SUPABASE_PROJECT_REF and 
 also create a connection string for the database in the project
 with password populated at build time from the SUPABASE_DB_PASSWORD secret.
 
-make sure to update the code/deployment to use the connection string and database configuration.
+make sure to update the code/deployment to use the connection string (DATABASE_URL) and database configuration (env variables in the target deployment service - for example vercel)
 
-if the input env variables are not provided, create a issue to ask for them instead of creating the project.
+make sure the integrate everything with the actual deployment. for example, in next with vercel, you need to set the NEXT_PUBLIC_SUPABASE_ANON_KEY as env variables in the vercel project.
+
+if the input env variables/vars/secrets (access token, org id, db password) are not provided, create a issue to ask for them instead of creating the project.
+
+### Auth providers integration github issues to open
+
+if the stack includes auth providers, open the following issues:
+
+- github auth (use AUTH_GITHUB_CLIENT_ID and AUTH_GITHUB_CLIENT_SECRET from build time secrets / envs) - specifically github isn't a valid prefix for secrets. so we need to use a different prefix. all the other auth providers are valid prefixes.
+- google auth (use GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET from build time secrets / envs)
+- facebook auth (use FACEBOOK_CLIENT_ID and FACEBOOK_CLIENT_SECRET from build time secrets / envs)
+
+if using an authentication provider, make sure to include integration instructions with the code base itself, for example: include instructions to set vercel or deployment env variables in the target deployment service (GITHUB_CLIENT_ID)
+
+as well as setting service or callback urls, for example in supabase and next: NEXT_PUBLIC_SUPABASE_URL
+and probably (NEXT_PUBLIC_SITE_URL)
 
 ### More issues for providers integration similar to the ones above (if the stack includes more providers)
 
