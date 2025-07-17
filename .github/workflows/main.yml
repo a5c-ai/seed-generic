@@ -97,12 +97,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node.js
+        continue-on-error: true
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: 'npm'
           check-latest: true
       - name: Setup Python
+        continue-on-error: true
         uses: actions/setup-python@v4
         with:
           python-version: 3.12
@@ -115,12 +117,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node.js
+        continue-on-error: true
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: 'npm'
           check-latest: true
       - name: Setup Python
+        continue-on-error: true
         uses: actions/setup-python@v4
         with:
           python-version: 3.12
@@ -135,12 +139,14 @@ jobs:
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
+        continue-on-error: true
         with:
           node-version: 22
           cache: 'npm'
           check-latest: true
       - name: Setup Python
         uses: actions/setup-python@v4
+        continue-on-error: true
         with:
           python-version: 3.12
           cache: 'pip'
