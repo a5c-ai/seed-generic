@@ -115,6 +115,10 @@ No need to change them nor copy them from the template.
 
 In addition to the usual instructions, open the following issues
 
+### Populate the sh scripts
+
+Populate the sh scripts (./scripts directory) with the right commands according to the project stack, requirements, etc.
+
 ### Vercel project creation and association (if the stack includes vercel)
 
 use the VERCEL_TOKEN and VERCEL_ORG_ID to generate a new project in vercel and save the VERCEL_PROJECT_ID in the repo:
