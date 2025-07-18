@@ -201,4 +201,4 @@ Examine the instructions in the README.md file or the docs site of the seed/star
 4. changes to the scripts dir (which are currently called by the main github workfow) to adapt to the seed/starter kit.
 5. only open tickets for non-functional (like the ones above) gaps from the seed/starter kit, not product features, gaps and requirements.
 6. the last issue to open should be to 'Create project specifications'
-the actual issue should be opened with the details above in the description. with instructions to perform the changes in the repo.
+the actual issue should be opened with the details above in the description. with instructions to perform the changes in the repo. (for the producer-agent)
