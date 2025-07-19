@@ -4,7 +4,7 @@
 </a>
 </p>
 
-# a5c zero-to-demo
+# a5c generic project seed - team included
 
 Build an entire project from scratch using a5c
 
