@@ -117,9 +117,10 @@ jobs:
           check-latest: true
       - name: Run npm install (if package.json exists)
         if: steps.filter-self.outputs.skip != 'true'
+        continue-on-error: true
         run: |
           if [ -f package.json ]; then
-            npm ci
+            npm i
           fi
       - name: Run A5C
         id: agents
