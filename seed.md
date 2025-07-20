@@ -200,5 +200,10 @@ Examine the instructions in the README.md file or the docs site of the seed/star
 3. changes in configuration files to adapt to the seed/starter kit
 4. changes to the scripts dir (which are currently called by the main github workfow) to adapt to the seed/starter kit.
 5. only open tickets for non-functional (like the ones above) gaps from the seed/starter kit, not product features, gaps and requirements.
-6. the last issue to open should be to 'Create project specifications'
+6. another issue to open should be to 'Create project specifications'
 the actual issue should be opened with the details above in the description. with instructions to perform the changes in the repo. (for the producer-agent)
+
+- for each feature that is not trivial, add an issue for the developer agent to create an "implementation guide" by researching how it is implemented in similar open source projects with similar relevant stack components
+- Implementation guides for remaining non-trivial features.
+  
+- last issue you open should be: 'Test and fix the project' , with the body:"Check that the project builds, tests and able to package for deployment. also, that it runs and serves (dev env and test env), if not,fix it. if you were unable to fix it. open a new issue and link it to this ticket, then open a pull request for what you were able to fix. if you reached a point where there are some screenshots or videos of tests (for example, playwright or cypress), attach them to this issue in a comment.' - for the developer agent to handle.
