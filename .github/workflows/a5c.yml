@@ -3,6 +3,9 @@ env:
   DISABLE_AUTOUPDATER: 1
   CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC: 1
   ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+  AZURE_OPENAI_PROJECT_NAME: ${{ vars.AZURE_OPENAI_PROJECT_NAME || '' }}
+  AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY || '' }}
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || '' }}  
   DEBUG: ${{ github.event.inputs.debug || 'false' }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
@@ -94,6 +97,16 @@ jobs:
       pull-requests: write
       issues: write
       security-events: write
+      actions: write
+      attestations: write
+      checks: write
+      deployments: write
+      discussions: write
+      id-token: write
+      models: read
+      packages: write
+      pages: write
+      statuses: write
 
     steps:
       - name: Checkout Repository
