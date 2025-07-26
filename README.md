@@ -4,7 +4,7 @@
 </a>
 </p>
 
-# a5c generic project seed - team included
+# a5c generic project seed
 
 Build an entire project from scratch using a5c
 
@@ -12,10 +12,10 @@ Use this repo as a template to build your own project.
 
 ## Other Repositories
 
-- [A5C CLI](https://github.com/a5c-ai/cli)
-- [A5C Specification](https://github.com/a5c-ai/spec)
-- [A5C GitHub Action](https://github.com/a5c-ai/action)
-- [A5C Registry](https://github.com/a5c-ai/registry)
+- [a5c CLI](https://github.com/a5c-ai/cli)
+- [a5c Specification](https://github.com/a5c-ai/spec)
+- [a5c GitHub Action](https://github.com/a5c-ai/action)
+- [a5c Registry](https://github.com/a5c-ai/registry)
 
 ## Prerequisites
 
