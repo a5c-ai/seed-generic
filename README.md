@@ -1,106 +1,169 @@
-# a5c Seed Template
+# a5c AI Development Platform
 
-> Transform your repository into an intelligent development environment with AI agents
+<div align="center">
 
-This template sets up an a5c-powered repository where AI agents become part of your development team. Instead of coding alone, you'll work with intelligent agents that handle tasks, review code, fix builds, and implement features.
+[![GitHub Template](https://img.shields.io/badge/Use%20Template-2EA44F?style=for-the-badge&logo=github&logoColor=white)](https://github.com/a5c-ai/seed-generic/generate)
+[![Documentation](https://img.shields.io/badge/Documentation-0066CC?style=for-the-badge&logo=read-the-docs&logoColor=white)](https://a5c.readthedocs.io/en/latest/)
+[![Website](https://img.shields.io/badge/Website-6366F1?style=for-the-badge&logo=safari&logoColor=white)](https://a5c.ai)
 
-## 🚀 Quick Setup (5 minutes)
+**Transform your repository into an intelligent development environment with AI agents**
 
-### Prerequisites
-- GitHub account
-- API key from one of these providers:
-  - [OpenAI](https://platform.openai.com/api-keys) - Reliable, good documentation
-  - [Anthropic Claude](https://console.anthropic.com/account/keys) - Advanced reasoning
-  - [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service) - Enterprise-ready, integrated billing
-  - [Google Gemini](https://aistudio.google.com/app/apikey) - Fast and affordable
+*Work with specialized AI agents that handle tasks, review code, fix builds, and implement features through GitHub Issues and Pull Requests.*
 
-### Setup Steps
+</div>
 
-1. **Use this template** 
-   - Click "Use this template" to create your repository
-   - Name your repository and make it private if needed
-   - **Quick check**: Go to Settings → General → Features and ensure both "Issues" and "Actions" are enabled ✅
+---
 
-2. **Configure your AI provider**
-   - Go to Settings → Secrets and variables → Actions
-   - Add your API key as a **Secret**:
-     - **OpenAI**: `OPENAI_API_KEY`
-     - **Claude**: `ANTHROPIC_API_KEY`  
-     - **Azure OpenAI**: `AZURE_OPENAI_API_KEY`
-     - **Gemini**: `GEMINI_API_KEY`
-   - Add provider selection as a **Variable**:
-     - Name: `A5C_CLI_TOOL`
-     - Value: `codex` (OpenAI) | `claude` (Anthropic) | `azure_codex` (Azure) | `gemini` (Google)
-   - **For Azure OpenAI only**: Also add variable `AZURE_OPENAI_PROJECT_NAME` with your Azure project name
+## 🚀 Choose Your Path
 
-3. **Activate a5c**
-   - Push any commit or mention any agent in an issue comment to trigger the a5c workflow
-   - Check the Actions tab to see a5c initialize
-   - Define the project requirements (prompt) in the github repo description field.
+<div align="center">
 
-> 💡 **Pro tip**: Paid GitHub users can set API keys and variables at the organization level for all repositories
+### 🆕 Starting a New Project?
+**Use our pre-configured template repository**
 
+[![Use Template](https://img.shields.io/badge/🚀_Use_a5c_Template-New_Project-brightgreen?style=for-the-badge&logo=github)](https://github.com/a5c-ai/seed-generic/generate)
 
-## 👥 Your AI Development Team
+*Get started in minutes with a fully configured a5c environment*
 
-After setup, you'll have access to these agents:
+---
 
-| Agent | Purpose | Usage |
-|-------|---------|-------|
-| `@team-installer-agent` | Installs other agents for your project | `@team-installer-agent install developer-agent` |
-| `@developer-agent` | General development tasks and features | `@developer-agent add user authentication` |
-| `@producer-agent` | Creates and manages project content | `@producer-agent create API documentation` |
-| `@validator-agent` | Tests and validates code quality | `@validator-agent review security in auth module` |
-| `@build-fixer-agent` | Fixes build and CI/CD issues | `@build-fixer-agent fix failing tests` |
-| `@content-writer-agent` | Creates documentation and content | `@content-writer-agent write README for utils` |
-| `@conflict-resolver-agent` | Resolves merge conflicts | `@conflict-resolver-agent resolve conflicts in PR #123` |
-| `@azure-sre-engineer-agent` | Azure infrastructure and operations | `@azure-sre-engineer-agent setup deployment pipeline` |
+### 📁 Have an Existing Project?
+**Add a5c agents to your current repository**
 
-## 💼 How to Work with a5c
+</div>
 
-### 1. Create Issues for Tasks
-Open GitHub issues describing what you want. Be specific about requirements:
+#### Quick Setup for Existing Projects
 
-```markdown
-**Example:**
-@developer-agent
+> **Note:** These steps are for adding a5c to an existing repository. For new projects, use the template above.
 
-Add a user dashboard with:
-- Profile editing form
-- Activity timeline
-- Dark/light mode toggle
-- Responsive design for mobile
+1. **📋 Add Configuration Files to Your Existing Repository**
+   
+   **Create `.github/workflows/a5c.yml`:**
+   ```yaml
+   name: a5c AI Agents
+   on:
+     issues:
+       types: [opened, edited]
+     issue_comment:
+       types: [created, edited]
+     pull_request:
+       types: [opened, edited, synchronize]
+     pull_request_review_comment:
+       types: [created, edited]
+   
+   jobs:
+     a5c:
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v4
+         - name: Run a5c AI Agents
+           uses: a5c-ai/agent-runner@v1
+           with:
+             github-token: ${{ secrets.GITHUB_TOKEN }}
+             ai-provider: ${{ vars.A5C_CLI_TOOL }}
+             openai-key: ${{ secrets.OPENAI_API_KEY }}
+             anthropic-key: ${{ secrets.ANTHROPIC_API_KEY }}
+             azure-key: ${{ secrets.AZURE_OPENAI_API_KEY }}
+             azure-project: ${{ vars.AZURE_OPENAI_PROJECT_NAME }}
+             gemini-key: ${{ secrets.GEMINI_API_KEY }}
+   ```
+   
+   **Create `.a5c/config.yml`:**
+   ```yaml
+   version: "1.0"
+   agents:
+     remote:
+       enabled: true
+       sources:
+         - "https://raw.githubusercontent.com/a5c-ai/registry/main/agents/development/team-installer-agent.agent.md"
+         - "https://raw.githubusercontent.com/a5c-ai/registry/main/agents/development/developer-agent.agent.md"
+         - "https://raw.githubusercontent.com/a5c-ai/registry/main/agents/development/validator-agent.agent.md"
+         - "https://raw.githubusercontent.com/a5c-ai/registry/main/agents/development/build-fixer-agent.agent.md"
+         - "https://raw.githubusercontent.com/a5c-ai/registry/main/agents/communication/content-writer-agent.agent.md"
+         - "https://raw.githubusercontent.com/a5c-ai/registry/main/agents/development/producer-agent.agent.md"
+         - "https://raw.githubusercontent.com/a5c-ai/registry/main/agents/development/conflict-resolver-agent.agent.md"
+         - "https://raw.githubusercontent.com/a5c-ai/registry/main/agents/sre/azure-sre-engineer-agent.agent.md"
+   ```
 
-Use React components and Tailwind CSS styling.
+2. **🔧 Configure GitHub Permissions**
+   
+   **Settings → Actions → General:**
+   - ✅ Select **"Read and write permissions"**
+   - ✅ Check **"Allow GitHub Actions to create and approve pull requests"**
+   
+   **Settings → General:**
+   - ✅ Enable **"Issues"**
+   - ✅ Enable **"Actions"**
+
+   **Organization Visibility** (if using GitHub organization):
+   - ✅ If your repo is in an organization, make yourself a public member
+   - ✅ Go to: `https://github.com/orgs/your-org-name/people`
+   - ✅ Settings → Member privileges → Make yourself visible
+
+3. **🔑 Add AI Provider Secrets**
+   
+   Go to **Settings → Secrets and variables → Actions** and add:
+   
+   | Provider | Secret | Variable |
+   |----------|--------|----------|
+   | **OpenAI** | `OPENAI_API_KEY` | `A5C_CLI_TOOL=codex` |
+   | **Claude** | `ANTHROPIC_API_KEY` | `A5C_CLI_TOOL=claude` |
+   | **Azure OpenAI** | `AZURE_OPENAI_API_KEY` | `A5C_CLI_TOOL=azure_codex` |
+   | **Gemini** | `GEMINI_API_KEY` | `A5C_CLI_TOOL=gemini` |
+
+4. **🎯 Activate Your Team**
+   
+   Create these initial issues:
+   ```markdown
+   # Issue 1: Seed the Project
+   @project-seeder-agent start, the initial description is in the project description.
+   ```
+   
+   ```markdown
+   # Issue 2: Install Team
+   @team-installer-agent Install all the relevant missing agent from the registry.
+   ```
+
+---
+
+## 🤖 Your AI Development Team
+
+| Agent | Purpose | Example Usage |
+|-------|---------|---------------|
+| 🏗️ **team-installer-agent** | Installs & configures new agents | `@team-installer-agent add security-reviewer` |
+| 👨‍💻 **developer-agent** | Feature development & coding | `@developer-agent add user authentication` |
+| 🎯 **producer-agent** | Project coordination & planning | `@producer-agent create project roadmap` |
+| ✅ **validator-agent** | Code quality & testing | `@validator-agent review this PR` |
+| 🔧 **build-fixer-agent** | CI/CD & build issues | `@build-fixer-agent fix failing tests` |
+| 📝 **content-writer-agent** | Documentation & content | `@content-writer-agent update API docs` |
+| 🤝 **conflict-resolver-agent** | Merge conflicts & disputes | `@conflict-resolver-agent resolve conflicts` |
+| ☁️ **azure-sre-engineer-agent** | Infrastructure & DevOps | `@azure-sre-engineer-agent setup CI pipeline` |
+
+---
+
+## 🔄 How It Works
+
+```mermaid
+graph LR
+    A[📝 Create Issue] --> B[🏷️ Tag Agent]
+    B --> C[🤖 Agent Analyzes]
+    C --> D[📤 Creates PR]
+    D --> E[👀 You Review]
+    E --> F[✅ Merge]
+    E --> G[💬 Request Changes]
+    G --> C
 ```
 
-### 2. Review Agent Work
-- Agents create pull requests with their implementations
-- Review the code, leave feedback, request changes
-- Agents learn from your comments and improve over time
-- Merge when you're satisfied with the work
+1. **📝 Create Issues** - Describe what you need in plain English
+2. **🏷️ Tag Agents** - Use `@agent-name` to assign specialized agents
+3. **🤖 AI Analysis** - Agents analyze your codebase and requirements
+4. **📤 Pull Requests** - Agents create PRs with implementations
+5. **👀 Review & Iterate** - Collaborate with agents through PR comments
+6. **✅ Deploy** - Merge when ready, agents handle the rest
 
-### 3. Monitor Progress
-- Check the **Actions** tab to see agent execution logs
-- Track CI/CD results and deployment status
-- Agents automatically fix failing tests and builds
+---
 
-### 4. Iterate and Scale
-- Comment on issues for refinements
-- Discuss architecture decisions in PRs
-- Let agents learn from your feedback patterns
-
-## 📝 Initial Workflow for a new project
-Open a tickets to:
-1. Seed the project
-```
-@project-seeder-agent start, the initial description is in the project description.
-```
-2. Install team:
-```
-@team-installer-agent Install all the relevant missing agent from the registry.
-```
-## 📝 Example Workflows
+## 💡 Example Workflows
 
 ### Add a New Feature
 ```markdown
@@ -115,7 +178,7 @@ Create a user authentication system with:
 Follow security best practices and add comprehensive tests.
 ```
 
-### Fix a Bug
+### Fix a Build Issue
 ```markdown
 @build-fixer-agent
 
@@ -133,70 +196,63 @@ Include request/response examples, error codes, and authentication requirements.
 Format as OpenAPI/Swagger specification.
 ```
 
-### Security Review
-```markdown
-@validator-agent
+---
 
-Please review the authentication system in `/src/auth/` for potential security vulnerabilities.
-Focus on:
-- Password hashing implementation
-- JWT token handling
-- Input validation
-- Session management
+## ⚡ What to Expect
 
-Provide recommendations for any issues found.
-```
+- **First Setup**: 2-5 minutes for agents to initialize
+- **Issue Response**: 1-5 minutes for agent acknowledgment
+- **PR Creation**: 5-30 minutes depending on task complexity
+- **Iteration Speed**: Near-instant responses to feedback
 
-## 🎯 What to Expect
+---
 
-### After Setup
-1. **Automatic Issues**: a5c may create initial setup issues for you
-2. **Team Installation**: The team installer sets up relevant agents
-3. **Active Development**: Agents respond to your issues with PRs
-4. **Continuous Improvement**: Agents learn from your feedback
-5. **Full Workflow**: Issues → Agent Work → PRs → Review → Merge
+## 💰 Cost Awareness
 
-### Your Repository Becomes
-- **Intelligent**: Agents understand your codebase and patterns
-- **Responsive**: Issues get addressed automatically
-- **Learning**: The system improves based on your feedback
-- **Scalable**: Add more agents as your project grows
+Complex projects may cost $20-50. Set usage limits in your AI provider dashboard.
 
-## ⚠️ Cost Awareness
-
-**Before You Launch**: A full-featured and complex project can nudge toward $20-50 in AI API usage. This represents tremendous value for what used to be months of development work, but consider setting usage limits in your AI provider dashboard.
-
-### Provider Cost Comparison
-- **OpenAI**: Reliable pricing, good documentation
-- **Claude**: Advanced reasoning, competitive rates  
-- **Azure OpenAI**: Enterprise billing through Azure account
-- **Gemini**: Fast and affordable option
+---
 
 ## 🔧 Troubleshooting
 
 ### Agents Not Responding?
-- Check the **Actions** tab for execution logs
-- Verify your API key is correctly set in repository secrets
-- Ensure the issue mentions an agent with the `@` symbol
-- **Critical**: Verify that GitHub Actions is enabled in Settings → General → Features
-- **If no workflow triggered**: Try creating an issue or comment with "@team-installer-agent do it" to manually activate the system
+
+1. Check GitHub Actions permissions (most common issue)
+2. Verify AI provider API key is set correctly
+3. Ensure "Issues" and "Actions" are enabled
+4. Check organization visibility (if using GitHub org)
+5. Manually trigger agent activation by commenting on the issue or ticket:
+   ```markdown
+   @team-installer-agent please assemble team.
+   ```
+   or
+   ```markdown
+   @developer-agent do it.
+   ```
 
 ### High API Costs?
-- Set usage limits in your AI provider dashboard (OpenAI/Anthropic/Azure/Google)
-- Be more specific in issue descriptions to reduce back-and-forth
-- Use smaller, focused tasks rather than large feature requests
-- Consider switching to a more cost-effective provider like Gemini
+- Set usage limits in your AI provider dashboard
+- Use more specific issue descriptions to reduce iteration
+- Review and approve PRs promptly to avoid re-work
 
 ### Build Failures?
-- The `@build-fixer-agent` automatically addresses CI/CD issues
-- Check if agents are conflicting - review open PRs
-- Ensure your repository has proper test configuration
+- Tag `@build-fixer-agent` in the failing PR or create a new issue
+- Check Actions tab for detailed error logs
+- Agents will automatically retry failed builds
+
+---
 
 ## 📚 Resources
 
-- **Documentation**: [a5c.readthedocs.io](https://a5c.readthedocs.io/en/latest/)
-- **Agent Registry**: [github.com/a5c-ai/registry](https://github.com/a5c-ai/registry)
-- **Main Website**: [a5c.ai](https://a5c.ai)
+<div align="center">
+
+[![Documentation](https://img.shields.io/badge/📖%20Documentation-a5c.readthedocs.io-blue?style=for-the-badge)](https://a5c.readthedocs.io/en/latest/)
+[![Agent Registry](https://img.shields.io/badge/🤖%20Agent%20Registry-github.com-green?style=for-the-badge)](https://github.com/a5c-ai/registry)
+[![Website](https://img.shields.io/badge/🌐%20Website-a5c.ai-purple?style=for-the-badge)](https://a5c.ai)
+
+</div>
+
+---
 
 ## 🤝 Contributing
 
@@ -208,8 +264,20 @@ This template is part of the a5c ecosystem. To contribute:
 
 ---
 
+<div align="center">
+
 ## 🎉 Welcome to the Future of Development
 
-Your repository is now **alive**. Issues become tasks. Pull requests become conversations. Code becomes collaborative. Welcome to development with a5c.
+**Your repository is now *alive***
 
-**Ready to start?** Create your first issue and tag an agent! 🚀
+Issues become tasks • Pull requests become conversations • Code becomes collaborative
+
+### 🚀 Ready to Start?
+
+**[Create your first issue and tag an agent!](../../issues/new)**
+
+---
+
+*Built with ❤️ by the a5c community*
+
+</div>
