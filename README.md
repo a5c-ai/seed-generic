@@ -98,7 +98,7 @@ Open a tickets to:
 ```
 2. Install team:
 ```
-@team-installer-agent Install all the relevant missing agent from the registry.
+*Team installation will occur automatically during project initialization.*
 ```
 ## 📝 Example Workflows
 
