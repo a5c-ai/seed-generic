@@ -94,7 +94,6 @@ Use React components and Tailwind CSS styling.
 Open a tickets to:
 1. Seed the project
 ```
-@project-seeder-agent start, the initial description is in the project description.
 ```
 2. Install team:
 ```
