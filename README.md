@@ -21,7 +21,21 @@ This template sets up an a5c-powered repository where AI agents become part of y
    - Name your repository and make it private if needed
    - **Quick check**: Go to Settings → General → Features and ensure both "Issues" and "Actions" are enabled ✅
 
-2. **Configure your AI provider**
+2. **Configure GitHub Permissions**
+   
+   **⚠️ CRITICAL: Without these permissions, agents cannot create PRs or make changes!**
+   
+   - **Set Permissions**: Settings → Actions → General
+     - Select **"Read and write permissions"**
+     - Check **"Allow GitHub Actions to create and approve pull requests"**
+   
+   - **Organization Visibility** (if using GitHub organization):
+     - If your repository is in an organization, make yourself a public member
+     - Go to: `https://github.com/orgs/your-org-name/people`
+     - Settings → Member privileges → Make yourself visible
+     - Example: `https://github.com/orgs/roccarnd/people`
+
+3. **Configure your AI provider**
    - Go to Settings → Secrets and variables → Actions
    - Add your API key as a **Secret**:
      - **OpenAI**: `OPENAI_API_KEY`
@@ -33,13 +47,21 @@ This template sets up an a5c-powered repository where AI agents become part of y
      - Value: `codex` (OpenAI) | `claude` (Anthropic) | `azure_codex` (Azure) | `gemini` (Google)
    - **For Azure OpenAI only**: Also add variable `AZURE_OPENAI_PROJECT_NAME` with your Azure project name
 
-3. **Activate a5c**
-   - Push any commit or mention any agent in an issue comment to trigger the a5c workflow
-   - Check the Actions tab to see a5c initialize
-   - Define the project requirements (prompt) in the github repo description field.
+4. **Initialize Your Team**
+   - Define the project requirements (prompt) in the GitHub repo description field
+   - Create these 2 initial issues to activate your agents:
+
+   **Issue #1: Seed the Project**
+   ```
+   @project-seeder-agent start, the initial description is in the project description.
+   ```
+
+   **Issue #2: Install Team**
+   ```
+   @team-installer-agent Install all the relevant missing agent from the registry.
+   ```
 
 > 💡 **Pro tip**: Paid GitHub users can set API keys and variables at the organization level for all repositories
-
 
 ## 👥 Your AI Development Team
 
@@ -78,6 +100,7 @@ Use React components and Tailwind CSS styling.
 - Agents create pull requests with their implementations
 - Review the code, leave feedback, request changes
 - Agents learn from your comments and improve over time
+- **Response time**: Agents typically respond within 1-5 minutes
 - Merge when you're satisfied with the work
 
 ### 3. Monitor Progress
@@ -90,16 +113,20 @@ Use React components and Tailwind CSS styling.
 - Discuss architecture decisions in PRs
 - Let agents learn from your feedback patterns
 
-## 📝 Initial Workflow for a new project
-Open a tickets to:
-1. Seed the project
-```
-@project-seeder-agent start, the initial description is in the project description.
-```
-2. Install team:
-```
-@team-installer-agent Install all the relevant missing agent from the registry.
-```
+## 📝 Initial Workflow for a New Project
+
+Open tickets to:
+
+1. **Seed the Project**
+   ```
+   @project-seeder-agent start, the initial description is in the project description.
+   ```
+
+2. **Install Team**
+   ```
+   @team-installer-agent Install all the relevant missing agent from the registry.
+   ```
+
 ## 📝 Example Workflows
 
 ### Add a New Feature
@@ -167,19 +194,21 @@ Provide recommendations for any issues found.
 **Before You Launch**: A full-featured and complex project can nudge toward $20-50 in AI API usage. This represents tremendous value for what used to be months of development work, but consider setting usage limits in your AI provider dashboard.
 
 ### Provider Cost Comparison
-- **OpenAI**: Reliable pricing, good documentation
-- **Claude**: Advanced reasoning, competitive rates  
-- **Azure OpenAI**: Enterprise billing through Azure account
-- **Gemini**: Fast and affordable option
+- **OpenAI**: ~$10-30 for typical projects, reliable pricing
+- **Claude**: ~$15-40 for typical projects, advanced reasoning
+- **Azure OpenAI**: ~$10-30 for typical projects, enterprise billing through Azure account
+- **Gemini**: ~$5-20 for typical projects, fast and affordable option
 
 ## 🔧 Troubleshooting
 
 ### Agents Not Responding?
-- Check the **Actions** tab for execution logs
-- Verify your API key is correctly set in repository secrets
-- Ensure the issue mentions an agent with the `@` symbol
-- **Critical**: Verify that GitHub Actions is enabled in Settings → General → Features
-- **If no workflow triggered**: Try creating an issue or comment with "@team-installer-agent do it" to manually activate the system
+1. Check the **Actions** tab for execution logs
+2. Verify your API key is correctly set in repository secrets
+3. Ensure the issue mentions an agent with the `@` symbol
+4. **Critical**: Verify that GitHub Actions is enabled in Settings → General → Features
+5. **Check GitHub Actions permissions** (most common issue): Settings → Actions → General → "Read and write permissions"
+6. **Check organization visibility** (if using GitHub org): Make yourself a public member
+7. **Manual activation**: Try creating an issue with `@team-installer-agent activate` to manually trigger the system
 
 ### High API Costs?
 - Set usage limits in your AI provider dashboard (OpenAI/Anthropic/Azure/Google)
@@ -191,6 +220,12 @@ Provide recommendations for any issues found.
 - The `@build-fixer-agent` automatically addresses CI/CD issues
 - Check if agents are conflicting - review open PRs
 - Ensure your repository has proper test configuration
+
+### Manual Activation
+If agents don't respond automatically:
+```
+@team-installer-agent activate
+```
 
 ## 📚 Resources
 
