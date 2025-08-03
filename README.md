@@ -34,20 +34,12 @@ This template sets up an a5c-powered repository where AI agents become part of y
    - **For Azure OpenAI only**: Also add variable `AZURE_OPENAI_PROJECT_NAME` with your Azure project name
 
 3. **Activate a5c**
-   - Push any commit to trigger the a5c workflow
+   - Push any commit or mention any agent in an issue comment to trigger the a5c workflow
    - Check the Actions tab to see a5c initialize
-   - **If no workflow runs**: Create an issue or comment tagging any agent (e.g., "@team-installer-agent do it" or "@developer-agent hello")
-
-4. **Install your development team**
-   - Open a new issue with this content:
+   - Define the project requirements (prompt) in the github repo description field.
 
 > 💡 **Pro tip**: Paid GitHub users can set API keys and variables at the organization level for all repositories
 
-```
-@team-installer-agent
-
-Install developer-agent, producer-agent, and validator-agent for my project.
-```
 
 ## 👥 Your AI Development Team
 
@@ -98,6 +90,16 @@ Use React components and Tailwind CSS styling.
 - Discuss architecture decisions in PRs
 - Let agents learn from your feedback patterns
 
+## 📝 Initial Workflow for a new project
+Open a tickets to:
+1. Seed the project
+```
+@project-seeder-agent start, the initial description is in the project description.
+```
+2. Install team:
+```
+@team-installer-agent Install all the relevant missing agent from the registry.
+```
 ## 📝 Example Workflows
 
 ### Add a New Feature
