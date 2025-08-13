@@ -120,12 +120,12 @@
    Create these initial issues:
    ```markdown
    # Issue 1: Seed the Project
-   @project-seeder-agent start, the initial description is in the project description.
+   @ project-seeder-agent start, the initial description is in the project description.
    ```
    
    ```markdown
    # Issue 2: Install Team
-   @team-installer-agent Install all the relevant missing agent from the registry.
+   @ team-installer-agent Install all the relevant missing agent from the registry.
    ```
 
 ---
@@ -134,14 +134,14 @@
 
 | Agent | Purpose | Example Usage |
 |-------|---------|---------------|
-| 🏗️ **team-installer-agent** | Installs & configures new agents | `@team-installer-agent add security-reviewer` |
-| 👨‍💻 **developer-agent** | Feature development & coding | `@developer-agent add user authentication` |
-| 🎯 **producer-agent** | Project coordination & planning | `@producer-agent create project roadmap` |
-| ✅ **validator-agent** | Code quality & testing | `@validator-agent review this PR` |
-| 🔧 **build-fixer-agent** | CI/CD & build issues | `@build-fixer-agent fix failing tests` |
-| 📝 **content-writer-agent** | Documentation & content | `@content-writer-agent update API docs` |
-| 🤝 **conflict-resolver-agent** | Merge conflicts & disputes | `@conflict-resolver-agent resolve conflicts` |
-| ☁️ **azure-sre-engineer-agent** | Infrastructure & DevOps | `@azure-sre-engineer-agent setup CI pipeline` |
+| 🏗️ **team-installer-agent** | Installs & configures new agents | `@ team-installer-agent add security-reviewer` |
+| 👨‍💻 **developer-agent** | Feature development & coding | `@ developer-agent add user authentication` |
+| 🎯 **producer-agent** | Project coordination & planning | `@ producer-agent create project roadmap` |
+| ✅ **validator-agent** | Code quality & testing | `@ validator-agent review this PR` |
+| 🔧 **build-fixer-agent** | CI/CD & build issues | `@ build-fixer-agent fix failing tests` |
+| 📝 **content-writer-agent** | Documentation & content | `@ content-writer-agent update API docs` |
+| 🤝 **conflict-resolver-agent** | Merge conflicts & disputes | `@ conflict-resolver-agent resolve conflicts` |
+| ☁️ **azure-sre-engineer-agent** | Infrastructure & DevOps | `@ azure-sre-engineer-agent setup CI pipeline` |
 
 ---
 
@@ -171,7 +171,7 @@ graph LR
 
 ### Add a New Feature
 ```markdown
-@developer-agent
+@ developer-agent
 
 Create a user authentication system with:
 - Email/password login
@@ -184,7 +184,7 @@ Follow security best practices and add comprehensive tests.
 
 ### Fix a Build Issue
 ```markdown
-@build-fixer-agent
+@ build-fixer-agent
 
 The CI pipeline is failing on the `test:integration` step. 
 The error mentions database connection issues in the test environment.
@@ -193,7 +193,7 @@ Please investigate and fix the test configuration.
 
 ### Create Documentation
 ```markdown
-@content-writer-agent
+@ content-writer-agent
 
 Create API documentation for the user management endpoints in `/src/api/users/`.
 Include request/response examples, error codes, and authentication requirements.
@@ -227,11 +227,11 @@ Complex projects may cost $20-50. Set usage limits in your AI provider dashboard
 4. Check organization visibility (if using GitHub org)
 5. Manually trigger agent activation by commenting on the issue or ticket:
    ```markdown
-   @team-installer-agent please assemble team.
+   @ team-installer-agent please assemble team.
    ```
    or
    ```markdown
-   @developer-agent do it.
+   @ developer-agent do it.
    ```
 
 ### High API Costs?
@@ -240,7 +240,7 @@ Complex projects may cost $20-50. Set usage limits in your AI provider dashboard
 - Review and approve PRs promptly to avoid re-work
 
 ### Build Failures?
-- Tag `@build-fixer-agent` in the failing PR or create a new issue
+- Tag `@ build-fixer-agent` in the failing PR or create a new issue
 - Check Actions tab for detailed error logs
 - Agents will automatically retry failed builds
 
