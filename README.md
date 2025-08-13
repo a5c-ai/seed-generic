@@ -118,10 +118,6 @@
 4. **🎯 Activate Your Team**
    
    Create these initial issues:
-   ```markdown
-   # Issue 1: Seed the Project
-   @ project-seeder-agent start, the initial description is in the project description.
-   ```
    
    ```markdown
    # Issue 2: Install Team
