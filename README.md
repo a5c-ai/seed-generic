@@ -121,7 +121,7 @@
    
    ```markdown
    # Issue 2: Install Team
-   @ team-installer-agent Install all the relevant missing agent from the registry.
+   ✅ team-installer-agent installed relevant missing agents from the registry.
    ```
 
 ---
