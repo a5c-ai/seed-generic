@@ -117,6 +117,12 @@
 
 4. **🎯 Activate Your Team**
    
+   # Important - in the Issues and PRs, the "@" sign has to be attached to the name of the agent
+   for example: 
+   ```markdown
+   @agent-name
+   ```
+
    Create these initial issues:
    ```markdown
    # Issue 1: Seed the Project
