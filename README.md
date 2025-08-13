@@ -75,18 +75,43 @@
    **Create `.a5c/config.yml`:**
    ```yaml
    version: "1.0"
-   agents:
-     remote:
-       enabled: true
-       sources:
-         - "https://raw.githubusercontent.com/a5c-ai/registry/main/agents/development/team-installer-agent.agent.md"
-         - "https://raw.githubusercontent.com/a5c-ai/registry/main/agents/development/developer-agent.agent.md"
-         - "https://raw.githubusercontent.com/a5c-ai/registry/main/agents/development/validator-agent.agent.md"
-         - "https://raw.githubusercontent.com/a5c-ai/registry/main/agents/development/build-fixer-agent.agent.md"
-         - "https://raw.githubusercontent.com/a5c-ai/registry/main/agents/communication/content-writer-agent.agent.md"
-         - "https://raw.githubusercontent.com/a5c-ai/registry/main/agents/development/producer-agent.agent.md"
-         - "https://raw.githubusercontent.com/a5c-ai/registry/main/agents/development/conflict-resolver-agent.agent.md"
-         - "https://raw.githubusercontent.com/a5c-ai/registry/main/agents/sre/azure-sre-engineer-agent.agent.md"
+   # Example user configuration for A5C Runner
+   # This file overrides settings from the built-in default configuration
+   # Uncomment and modify the sections you want to customize   
+   
+   # Override default settings
+   # mcp_config_path: ".a5c/custom-mcps.json"
+   
+   # Override file processing settings
+   # file_processing:
+   #   include_patterns:
+   #     - "src/**/*.ts"
+   #     - "lib/**/*.js"
+   #     - "**/*.md"
+   #   exclude_patterns:
+   #     - "node_modules/**"
+   #     - "dist/**"
+   #     - "*.test.*"
+   remote_agents:
+     enabled: true
+     cache_timeout: 120  # 2 hours
+     retry_attempts: 5
+     retry_delay: 2000   # 2 seconds
+     sources:
+       individual:
+         - uri: "https://raw.githubusercontent.com/a5c-ai/registry/main/agents/development/team-installer-agent.agent.md"
+           alias: "team-installer-agent"
+   # Override agent discovery settings
+   # agent_discovery:
+   #   enabled: true
+   #   max_agents_in_context: 15
+   #   include_same_directory: true
+   
+   # Override prompt URI settings
+   # prompt_uri:
+   #   cache_timeout: 120
+   #   retry_attempts: 5
+   #   retry_delay: 2000 
    ```
 
 2. **🔧 Configure GitHub Permissions**
