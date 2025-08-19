@@ -134,24 +134,3 @@ jobs:
           cache: 'pip'
           check-latest: true
       - run: ./scripts/test.sh
-  deploy:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        continue-on-error: true
-        with:
-          node-version: 22
-          cache: 'npm'
-          check-latest: true
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        continue-on-error: true
-        with:
-          python-version: 3.12
-          cache: 'pip'
-          check-latest: true
-      - run: ./scripts/deploy.sh
