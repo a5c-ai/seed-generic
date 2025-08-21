@@ -7,7 +7,7 @@ env:
   AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY || '' }}
   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || '' }}  
   DEBUG: ${{ github.event.inputs.debug || 'false' }}
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.A5C_AGENT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
   DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
   DISCORD_GUILD_ID: ${{ vars.DISCORD_GUILD_ID }}
   A5C_CLI_TOOL: ${{ vars.A5C_CLI_TOOL }}
@@ -144,7 +144,7 @@ jobs:
         with:
           # Auto-routing by default, unless specific agent is requested
           agent_uri: ${{ github.event.inputs.agent_uri || '' }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.A5C_AGENT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
       - name: Upload artifacts
         id: upload-artifacts
         uses: actions/upload-artifact@v4
