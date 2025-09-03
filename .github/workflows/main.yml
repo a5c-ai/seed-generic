@@ -1,15 +1,15 @@
 # GitHub action to build
 
 name: Build
-
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
 on:
   push:
     branches:
       - main
+      - a5c/main
       - release
-  pull_request:
-    branches:
-      - main
 env:
     DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
     NEXTAUTH_URL: http://localhost:4002
@@ -24,6 +24,7 @@ env:
     ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
     AZURE_OPENAI_PROJECT_NAME: ${{ vars.AZURE_OPENAI_PROJECT_NAME || '' }}
     AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY || '' }}
+    AZURE_ACR_NAME: ${{ vars.AZURE_ACR_NAME || '' }}
     OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY || '' }}
     FEATURE_TEAM_DELETION: true
     FEATURE_TEAM_PAYMENTS: true
@@ -93,7 +94,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-m
     strategy:
       matrix:
         node-version: [22] 
@@ -115,7 +116,7 @@ jobs:
           check-latest: true
       - run: ./scripts/build.sh
   test:
-    runs-on: ubuntu-latest
+    runs-on: runner8core
     needs: build
     steps:
       - uses: actions/checkout@v4
