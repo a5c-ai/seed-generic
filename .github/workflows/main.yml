@@ -94,7 +94,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest-m
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [22] 
