@@ -1,11 +1,14 @@
 # GitHub action to build
 
 name: Deploy
-
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
 on:
   push:
     branches:
       - main
+      - a5c/main
       - release
 env:
     DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
@@ -93,7 +96,7 @@ env:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest-m
     steps:
       - uses: actions/checkout@v4
 
