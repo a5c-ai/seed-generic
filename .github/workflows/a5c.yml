@@ -115,10 +115,10 @@ jobs:
       statuses: write
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: a5c token
+        id: a5c-token
+        continue-on-error: true
+        uses: a5c-ai/generate-token-action@main
       - name: Filter Self Workflow-run
         id: filter-self
         # in case this is a workflow_run event, skip if the workflow did not fail.
@@ -126,14 +126,19 @@ jobs:
         run: |
           echo "::set-output name=skip::true"
           exit 0
-      - name: Setup Node.js
+      - name: Checkout Repository
+        uses: actions/checkout@v4
         if: steps.filter-self.outputs.skip != 'true'
-        uses: actions/setup-node@v4
-        continue-on-error: true
         with:
-          node-version: 22
-          cache: 'npm'
-          check-latest: true
+          fetch-depth: 0      
+      # - name: Setup Node.js
+      #   if: steps.filter-self.outputs.skip != 'true'
+      #   uses: actions/setup-node@v4
+      #   continue-on-error: true
+      #   with:
+      #     node-version: 22
+      #     cache: 'npm'
+      #     check-latest: true
       # - name: Run npm install (if package.json exists)
       #   if: steps.filter-self.outputs.skip != 'true'
       #   continue-on-error: true
@@ -148,10 +153,11 @@ jobs:
         with:
           # Auto-routing by default, unless specific agent is requested
           agent_uri: ${{ github.event.inputs.agent_uri || '' }}
-          github_token: ${{ secrets.A5C_AGENT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          github_token: ${{ steps.a5c-token.outputs.a5c_token || secrets.A5C_AGENT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
       - name: Upload artifacts
         id: upload-artifacts
         uses: actions/upload-artifact@v4
+        if: steps.filter-self.outputs.skip != 'true'
         with:
           name: a5c-artifacts
           path: |
