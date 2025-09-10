@@ -173,7 +173,7 @@ and probably (NEXT_PUBLIC_SITE_URL)
 For Example: Prisma, need to set the DATABASE_URL according to the rest of the stack during the build/run time. as well as to add prisma commands to the npm scripts. (build should could prisma generate too)
 
 ### Project specifications
-(do not write the specs.md file yourself)
+(do not write the docs/specs/README.md file yourself)
 Create a new issue to 'Create project specifications' with the following details:
 
 - the project specifications should be a detailed description of the project, with the following details 
@@ -183,7 +183,7 @@ Create a new issue to 'Create project specifications' with the following details
   - the project requirements
   - the project stack
   - the project deployment providers
-  - instruction to research and create the project specifications in the specs.md file in the root of the repo.
+  - instruction to research and create the project specifications in the docs/specs/README.md file in the root of the repo.
 
 ### Husky pre-commit hooks (if the seed/stack includes a package.json,  otherwise, the right tool for pre-commit hooks)
 
@@ -195,7 +195,7 @@ Create a new issue to 'Create project specifications' with the following details
 
 Examine the instructions in the README.md file or the docs site of the seed/starter kit to complete the scaffolding. pay attention to details like:
 
-1. 3rd party services and deployment services (supabase, vercel, etc) integrations setup
+1. 3rd party services and deployment services (aws, azure, supabase, vercel, etc) integrations setup
 2. environment variables setup
 3. changes in configuration files to adapt to the seed/starter kit
 4. changes to the scripts dir (which are currently called by the main github workfow) to adapt to the seed/starter kit.
