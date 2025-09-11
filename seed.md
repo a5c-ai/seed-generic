@@ -71,8 +71,6 @@ https://github.com/thecodingmachine/react-native-boilerplate
 
 https://github.com/obytes/react-native-template-obytes (React Native, Expo, PNPM, TypeScript, TailwindCSS, Husky, EAS, GitHub Actions, Env Vars, expo-router, react-query, react-hook-form)
 
-
-
 pure microservices:
 
 https://github.com/hagopj13/node-express-boilerplate (nodejs, express, mongoose)
@@ -119,42 +117,6 @@ In addition to the usual instructions, open the following issues
 
 Populate the sh scripts (./scripts directory) with the right commands according to the project stack, requirements, etc.
 
-### Vercel project creation and association (if the stack includes vercel)
-
-use the VERCEL_TOKEN and VERCEL_ORG_ID to generate a new project in vercel and save the VERCEL_PROJECT_ID in the repo:
-
-as an env variable for the actions (in github)
-as a comment to this ticket.
-in a .vercel.env file in the repo (with only the new VERCEL_PROJECT_ID)
-
-if the input env variables are not provided, create a issue to ask for them instead of creating the project.
-
-then, make sure you update the npm run deploy command to:
-link the project to vercel:
-          vercel link --yes --token=${{ secrets.VERCEL_TOKEN }} \
-          --scope=${{ vars.VERCEL_ORG_ID }} \
-          --project=${{ vars.VERCEL_PROJECT_ID }}
-and deploy the project:
-          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }} \
-          --scope=${{ vars.VERCEL_ORG_ID }} 
-
-### Supabase project creation and association (if the stack includes supabase)
-
-use the SUPABASE_ACCESS_TOKEN and SUPABASE_ORG_ID to generate a new project (with default db password from SUPABASE_DB_PASSWORD) in supabase and save the SUPABASE_PROJECT_REF and SUPABASE_PROJECT_URL and SUPABASE_ANON_KEY in the repo:
-
-as an env variable for the actions (in github)
-as a comment to this ticket.
-in a .supabase.env file in the repo (with only the new SUPABASE_PROJECT_REF and SUPABASE_PROJECT_URL)
-
-also create a connection string for the database in the project
-with password populated at build time from the SUPABASE_DB_PASSWORD secret.
-
-make sure to update the code/deployment to use the connection string (DATABASE_URL) and database configuration (env variables in the target deployment service - for example vercel)
-
-make sure the integrate everything with the actual deployment. for example, in next with vercel, you need to set the NEXT_PUBLIC_SUPABASE_ANON_KEY as env variables in the vercel project.
-
-if the input env variables/vars/secrets (access token, org id, db password) are not provided, create a issue to ask for them instead of creating the project.
-
 ### Auth providers integration github issues to open
 
 if the stack includes auth providers, open the following issues:
@@ -173,6 +135,7 @@ and probably (NEXT_PUBLIC_SITE_URL)
 For Example: Prisma, need to set the DATABASE_URL according to the rest of the stack during the build/run time. as well as to add prisma commands to the npm scripts. (build should could prisma generate too)
 
 ### Project specifications
+
 (do not write the docs/specs/README.md file yourself)
 Create a new issue to 'Create project specifications' with the following details:
 
@@ -193,17 +156,20 @@ Create a new issue to 'Create project specifications' with the following details
 
 ### Seed Specific instructions
 
+Examing the available vars/secrets and org vars/secrets available in the repo, specifically those that fit the stack and requirements. and use them to create the issue definitions for the provider integrations, deployment scripts, etc. (you can use gh command in the scripts to get them from within the script in a workflow run)
+
 Examine the instructions in the README.md file or the docs site of the seed/starter kit to complete the scaffolding. pay attention to details like:
 
-1. 3rd party services and deployment services (aws, azure, supabase, vercel, etc) integrations setup
+1. 3rd party services and deployment services (aws, azure, github pages, supabase, vercel, etc) integrations setup
 2. environment variables setup
 3. changes in configuration files to adapt to the seed/starter kit
 4. changes to the scripts dir (which are currently called by the main github workfow) to adapt to the seed/starter kit.
 5. only open tickets for non-functional (like the ones above) gaps from the seed/starter kit, not product features, gaps and requirements.
 6. another issue to open should be to 'Create project specifications'
 the actual issue should be opened with the details above in the description. with instructions to perform the changes in the repo. (for the producer-agent)
+7. open an issue to 'Producer' and tag the producer-agent to handle.
 
 - for each feature that is not trivial, add an issue for the developer agent to create an "implementation guide" by researching how it is implemented in similar open source projects with similar relevant stack components
 - Implementation guides for remaining non-trivial features.
-  
+
 - last issue you open should be: 'Test and fix the project' , with the body:"Check that the project builds, tests and able to package for deployment. also, that it runs and serves (dev env and test env), if not,fix it. if you were unable to fix it. open a new issue and link it to this ticket, then open a pull request for what you were able to fix. if you reached a point where there are some screenshots or videos of tests (for example, playwright or cypress), attach them to this issue in a comment.' - for the developer agent to handle.
