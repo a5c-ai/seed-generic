@@ -1,7 +1,6 @@
 name: a5c
 concurrency:
   group: a5c-${{github.event_name}}-${{ github.ref }}-${{ github.event_name == 'workflow_run' && github.event.workflow_run.name || '' }}-${{ github.event_name == 'issue_comment' && github.event.issue.number || '' }}-${{ github.event_name == 'issues' && github.event.issue.number || '' }}-${{ github.event_name == 'pull_request' && github.head_ref || '' }}
-  cancel-in-progress: false
 
 env:
   DISABLE_AUTOUPDATER: 1
