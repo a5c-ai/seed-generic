@@ -160,7 +160,7 @@ Examing the available vars/secrets and org vars/secrets available in the repo, s
 
 Examine the instructions in the README.md file or the docs site of the seed/starter kit to complete the scaffolding. pay attention to details like:
 
-1. 3rd party services and deployment services (aws, azure, github pages, supabase, vercel, etc) integrations setup
+1. 3rd party services and deployment services (aws, azure, gcp, kubernetes direct, github pages etc) integrations setup
 2. environment variables setup
 3. changes in configuration files to adapt to the seed/starter kit
 4. changes to the scripts dir (which are currently called by the main github workfow) to adapt to the seed/starter kit.
