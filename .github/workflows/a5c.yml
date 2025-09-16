@@ -57,6 +57,7 @@ env:
   HEROKU_APP_ID: ${{ vars.HEROKU_APP_ID || '' }}
   HEROKU_APP_URL: ${{ vars.HEROKU_APP_URL || '' }}
   A5C_ENABLE_SCHEDULED_EVENTS: ${{ vars.A5C_ENABLE_SCHEDULED_EVENTS || 'false' }}
+  A5C_AUTO_MODE: ${{ vars.A5C_AUTO_MODE || 'false' }}
 # Universal event triggers - the agent router will handle filtering
 on:
   # Pull Request Events
