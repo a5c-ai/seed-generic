@@ -50,7 +50,6 @@ env:
   AUTH_GITHUB_ORG_ID: ${{ vars.AUTH_GITHUB_ORG_ID || '' }}
   AUTH_GITHUB_ORG_NAME: ${{ vars.AUTH_GITHUB_ORG_NAME || '' }}
   AUTH_GITHUB_ORG_DESCRIPTION: ${{ vars.AUTH_GITHUB_ORG_DESCRIPTION || '' }}
-  
   # other credentials
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY || '' }}
   HEROKU_APP_NAME: ${{ vars.HEROKU_APP_NAME || '' }}
@@ -144,6 +143,7 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ steps.a5c-token.outputs.a5c_token || secrets.A5C_AGENT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          ref: a5c/main
       - name: Run A5C
         id: agents
         uses: a5c-ai/action@main
