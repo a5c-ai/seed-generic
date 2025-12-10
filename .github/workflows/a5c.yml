@@ -1,6 +1,6 @@
 name: a5c
-concurrency:
-  group: a5c-${{github.event_name}}-${{ github.ref }}-${{ github.event_name == 'workflow_run' && github.event.workflow_run.name || '' }}-${{ github.event_name == 'issue_comment' && github.event.issue.number || '' }}-${{ github.event_name == 'issues' && github.event.issue.number || '' }}-${{ github.event_name == 'pull_request' && github.head_ref || '' }}
+# concurrency:
+#   group: a5c-${{github.event_name}}-${{ github.ref }}-${{ github.event_name == 'workflow_run' && github.event.workflow_run.name || '' }}-${{ github.event_name == 'issue_comment' && github.event.issue.number || '' }}-${{ github.event_name == 'issues' && github.event.issue.number || '' }}-${{ github.event_name == 'pull_request' && github.head_ref || '' }}
 
 env:
   DISABLE_AUTOUPDATER: 1
@@ -57,6 +57,8 @@ env:
   HEROKU_APP_URL: ${{ vars.HEROKU_APP_URL || '' }}
   A5C_ENABLE_SCHEDULED_EVENTS: ${{ vars.A5C_ENABLE_SCHEDULED_EVENTS || 'false' }}
   A5C_AUTO_MODE: ${{ vars.A5C_AUTO_MODE || 'false' }}
+  ANTHROPIC_VERTEX_PROJECT_ID: ${{ secrets.ANTHROPIC_VERTEX_PROJECT_ID || 'false' }}
+  AWS_BEARER_TOKEN_BEDROCK: ${{ secrets.AWS_BEARER_TOKEN_BEDROCK || 'false' }}
 # Universal event triggers - the agent router will handle filtering
 on:
   # Pull Request Events
@@ -77,14 +79,14 @@ on:
     types: [created]
 
   # Scheduled Events
-  schedule:
-    # Every 30 minutes
-    - cron: '*/30 * * * *'
-    # twice a day at 9
-    - cron: '0 9,21 * * *'
-  workflow_run:
-    types: [completed]
-    workflows: [Build,Deploy,Tests,Release,E2E Tests,Infrastructure Deployment,Integration Tests]
+  # schedule:
+  #   # Every 30 minutes
+  #   - cron: '*/30 * * * *'
+  #   # twice a day at 9
+  #   - cron: '0 9,21 * * *'
+  # workflow_run:
+  #   types: [completed]
+  #   workflows: [Build,Deploy,Tests,Release,E2E Tests,Infrastructure Deployment,Integration Tests]
 
   # Manual Triggers
   workflow_dispatch:
