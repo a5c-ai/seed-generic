@@ -116,7 +116,7 @@ jobs:
           check-latest: true
       - run: ./scripts/build.sh
   test:
-    runs-on: runner8core
+    runs-on: ubuntu-latest
     needs: build
     steps:
       - uses: actions/checkout@v4
