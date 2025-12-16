@@ -78,7 +78,7 @@ env:
     AWS_REGION: ${{ vars.AWS_REGION || '' }}
     # gcloud credentials
     GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS || '' }}    
-
+    GCP_SA_KEY: ${{ secrets.GCP_SA_KEY || '' }}
     # auth credentials
     GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID || '' }}
     GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET || '' }}
