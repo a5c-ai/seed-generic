@@ -35,7 +35,7 @@ env:
   AWS_REGION: ${{ vars.AWS_REGION || '' }}
   # gcloud credentials
   GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS || '' }}
-  GCP_SA_KEY: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS || '' }}
+  GCP_SA_KEY: ${{ secrets.GCP_SA_KEY || '' }}
   # azure credentials
   AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID || '' }}
   AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET || '' }}
